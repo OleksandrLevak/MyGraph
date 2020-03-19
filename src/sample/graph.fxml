@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1080.0" prefHeight="900.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GraphController">
+   <children>
+      <Button fx:id="draw" layoutX="1360.0" layoutY="104.0" mnemonicParsing="false" onAction="#buttonClicked" style="-fx-background-color: black;" text="Show tops" textAlignment="CENTER" textFill="WHITE" />
+      <Text layoutX="1198.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number from 10 to 19" textAlignment="CENTER" wrappingWidth="201.18309593200684">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="num" layoutX="1399.0" layoutY="45.0" prefHeight="20.0" prefWidth="40.0" />
+      <Separator layoutX="999.0" layoutY="-4.0" orientation="VERTICAL" prefHeight="909.0" prefWidth="0.0" />
+      <Button fx:id="inputMatrix" layoutX="1342.0" layoutY="727.0" mnemonicParsing="false" onAction="#draw" style="-fx-background-color: black;" text="Input matrix" textAlignment="CENTER" textFill="WHITE" />
+      <Pane fx:id="grid" layoutX="1033.0" layoutY="191.0" prefHeight="490.0" prefWidth="430.0" />
+      <Button fx:id="drawVertex" layoutX="1222.0" layoutY="727.0" mnemonicParsing="false" onAction="#drawVertex" style="-fx-background-color: black;" text="Draw vertexes" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="drawArrows" layoutX="1142.0" layoutY="727.0" mnemonicParsing="false" onAction="#drawArrows" style="-fx-background-color: black;" text="Arrows" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="powerEdge" layoutX="1067.0" layoutY="727.0" mnemonicParsing="false" onAction="#drawPower" style="-fx-background-color: black;" text="Power" textAlignment="CENTER" textFill="WHITE" />
+   </children>
+</Pane>

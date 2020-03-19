@@ -262,7 +262,7 @@ public class GraphController {
             num.setFont(Font.font ("Arial Black", 14));
             pane.getChildren().add(num);
         }
-        //dewdwd
+        //work
     }
 
 

@@ -71,6 +71,9 @@ public class GraphController {
     int[][] powersDirect = new int[19][3];
     int[][] matrix = new int[11][11];
 
+    int[] isolatedVertexes = new int[15];
+    int[] hangingVertexes = new int[15];
+
 
 
     // Classes
@@ -80,6 +83,7 @@ public class GraphController {
     EdegeOnWay edgeCoord = new EdegeOnWay();
     NumInEdges inputText = new NumInEdges();
     CheckDirect check = new CheckDirect();
+    TypeOfVertexes type = new TypeOfVertexes();
 
     @FXML
     void buttonClicked(ActionEvent event) {
@@ -206,6 +210,9 @@ public class GraphController {
 
         }
 
+        isolatedVertexes = type.isoleted(powersDirect);
+        hangingVertexes = type.hanging(powersDirect);
+
 
 
         System.out.println("Input matrix: " + Arrays.toString(nums));
@@ -214,6 +221,8 @@ public class GraphController {
         System.out.println("Coordinates of vertex: " + Arrays.deepToString(vertex));
         System.out.println("Coordinates of lines: " + Arrays.deepToString(coorToDrawLine));
         System.out.println("Powers of edges: " + Arrays.deepToString(powersDirect));
+        System.out.println("Isolated: " + Arrays.toString(isolatedVertexes));
+        System.out.println("Hanging: " + Arrays.toString(hangingVertexes));
         System.out.println("Number of vertex: " + n);
 
 
@@ -459,7 +468,7 @@ public class GraphController {
                 String pos = Integer.toString(powersDirect[i][1]);
                 String neg = Integer.toString(powersDirect[i][2]);
                 String res = "Vertex" + edgenum + ": " + "+ " + pos + ", - " + neg;
-                Text text = new Text(40 + i*160 - l, 780 + k, res);
+                Text text = new Text(40 + i*160 - l, 750 + k, res);
                 text.setFont(Font.font ("Verdana", 15));
                 pane.getChildren().add(text);
             } else {
@@ -472,6 +481,36 @@ public class GraphController {
 
 
         }
+
+        Text text = new Text(40, 820, "Isolated vertices:");
+        text.setFont(Font.font ("Verdana", 15));
+        pane.getChildren().add(text);
+
+        Text text3 = new Text(40, 845, "Hanging vertices:");
+        text3.setFont(Font.font ("Verdana", 15));
+        pane.getChildren().add(text3);
+
+        for(int i = 0; i<topNum; i++){
+            if(isolatedVertexes[i] == 0) break;
+            String isolated = Integer.toString(isolatedVertexes[i]);
+            Text text2 = new Text(180 + i*20, 820 , isolated);
+            text2.setFont(Font.font ("Verdana", 15));
+            pane.getChildren().add(text2);
+        }
+
+        for(int i = 0; i<topNum; i++){
+            if(hangingVertexes[0] == 0){
+                Text text2 = new Text(180 + i*20, 845, "None");
+                text2.setFont(Font.font ("Verdana", 15));
+                pane.getChildren().add(text2);
+            }
+            if(hangingVertexes[i] == 0) break;
+            String isolated = Integer.toString(hangingVertexes[i]);
+            Text text2 = new Text(180 + i*20, 845 , isolated);
+            text2.setFont(Font.font ("Verdana", 15));
+            pane.getChildren().add(text2);
+        }
+
         System.out.println("Powers of edges: " + Arrays.deepToString(powersDirect));
 
     }

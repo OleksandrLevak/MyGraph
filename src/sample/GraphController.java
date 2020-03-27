@@ -458,7 +458,12 @@ public class GraphController {
     void drawPower(ActionEvent event) {
         int k = 0;
         int l = 0;
-        for(int i = 0; i < 11; i++){
+        int flag = 0;
+
+        for(int i = 0; i < topNum; i++){
+            if(powersDirect[0][1] + powersDirect[0][2] == powersDirect[i][1] + powersDirect[i][2]){
+                flag++;
+            }
             if(i == 6) {
                 k = 30;
                 l = i*160;
@@ -472,15 +477,26 @@ public class GraphController {
                 text.setFont(Font.font ("Verdana", 15));
                 pane.getChildren().add(text);
             } else {
-                String sum = Integer.toString(powersDirect[i][1] + powersDirect[i][2]);
+                int sumInt = powersDirect[i][1] + powersDirect[i][2];
+                String sum = Integer.toString(sumInt);
                 String res = "Vertex" + edgenum + ": " + sum;
                 Text text = new Text(40 + i*160 - l, 750 + k, res);
                 text.setFont(Font.font ("Verdana", 15));
                 pane.getChildren().add(text);
             }
-
-
         }
+
+        if(flag == topNum){
+            Text text = new Text(40, 870, "Regular: yes");
+            text.setFont(Font.font ("Verdana", 15));
+            pane.getChildren().add(text);
+        } else {
+            Text text = new Text(40, 870, "Regular: no");
+            text.setFont(Font.font ("Verdana", 15));
+            pane.getChildren().add(text);
+        }
+
+
 
         Text text = new Text(40, 820, "Isolated vertices:");
         text.setFont(Font.font ("Verdana", 15));

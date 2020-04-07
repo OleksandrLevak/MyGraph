@@ -6,6 +6,18 @@ public class PositionOfEdges {
         int [] line_diagonal = new int[2];
         int line = 0, diagonal = 0;
         switch (topNum){
+            case 7:
+                line = 3;
+                diagonal = 2;
+                break;
+            case 8:
+                line = 4;
+                diagonal = 2;
+                break;
+            case 9:
+                line = 3;
+                diagonal = 3;
+                break;
             case 10:
                 line = 4;
                 diagonal = 3;

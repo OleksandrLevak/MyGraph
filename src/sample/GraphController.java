@@ -48,25 +48,36 @@ public class GraphController {
     private Button powerEdge;
 
     @FXML
+    private Button showWays;
+
+    @FXML
+    private Button components;
+
+    @FXML
+    private Button сondensation;
+
+    @FXML
     private Pane grid;
 
+
     int topNum = 0;
+    int n = 0;
 
     int[][] coordinates = new int[19][3];
-    int[][] coorToDrawLine = new int[121][4];
+    int[][] coorToDrawLine = new int[400][4];
 
     int[][] coordArrow  = new int[100][4];
     int[][] coordArrow2 = new int[100][4];
     int[][] numCoord = new int[400][2];
 
-    int n = 0;
+
     int radius = 12;
+    int r = radius/2 + 3;
     int line = 0;
     int diagonal = 0;
     boolean isDirect = false;
     int [] line_diagonal = new int[2];
     int[][] coordDrawLoopArrow = new int[19][2];
-    int[][] vertex = new int[361][2];
     int[][] checkMatrix = new int[19][19];
     int[][] powersDirect = new int[19][3];
     int[][] matrix = new int[11][11];
@@ -74,16 +85,28 @@ public class GraphController {
     int[] isolatedVertexes = new int[15];
     int[] hangingVertexes = new int[15];
 
+    int[][] waysLen2 = new int[200][3];
+    int[][] waysLen3 = new int[200][4];
+
+    int[][] component = new int[400][19];
+    int[][] condens = new int[400][19];
+
 
 
     // Classes
     PositionOfEdges l_d = new PositionOfEdges();
     CoordToDrawEdges coord = new CoordToDrawEdges();
+    CoordToDrawLines coord_ver_line = new CoordToDrawLines();
     IndentionFormula indention = new IndentionFormula();
     EdegeOnWay edgeCoord = new EdegeOnWay();
     NumInEdges inputText = new NumInEdges();
     CheckDirect check = new CheckDirect();
     TypeOfVertexes type = new TypeOfVertexes();
+    CreateArrayOfWays arrWays = new CreateArrayOfWays();
+    ContiguityMatrix conMatrix = new ContiguityMatrix();
+    StrongConnect strongConn = new StrongConnect();
+    СondensationMatrix condensation = new СondensationMatrix();
+
 
     @FXML
     void buttonClicked(ActionEvent event) {
@@ -96,7 +119,7 @@ public class GraphController {
         diagonal = line_diagonal[1];
 
 
-        coordinates = coord.getCoord(line, diagonal);
+        coordinates = coord.getCoord(line, diagonal, 690, 560, 10);
 
         for(int i = 0; i<=coordinates.length; i++){
             if(coordinates[i][0] == 0 &&  coordinates[i][1] == 0) break;
@@ -106,7 +129,7 @@ public class GraphController {
             pane.getChildren().add(edge);
         }
 
-        numCoord = inputText.TextToEdges(line, diagonal);
+        numCoord = inputText.TextToEdges(line, diagonal, 690, 560, 10);
 
         for(int i = 0; i <= numCoord.length; i++){
             if(numCoord[i][0] == 0 && numCoord[i][1] == 0) break;
@@ -116,8 +139,8 @@ public class GraphController {
         }
 
 
-            matr.setPrefWidth(430);
-            matr.setPrefHeight(490);
+            matr.setPrefWidth(300);
+            matr.setPrefHeight(360);
             matr.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
             matr.setVisible(true);
 
@@ -125,6 +148,7 @@ public class GraphController {
     }
 
     TextArea matr = new TextArea();
+
 
 
     @FXML
@@ -169,29 +193,13 @@ public class GraphController {
 
         // Create an array of vertices numbers, which are connected
 
-        for(int i = 0; i < topNum; i++){
-            for(int j = 0; j < topNum; j++){
-                if(matrix[i][j] == 1){
-                    vertex[n][0] = j + 1;
-                    vertex[n][1] = i + 1;
-                    n++;
-                }
-            }
-        }
+       int[][] vertex = coord_ver_line.getVertex(matrix, topNum);
+
+        n = coord_ver_line.numOfVertex(matrix, topNum);
 
         // Create an array of coordinates to draw vertices
 
-        for(int i = 0; i < n; i++){                          //n - number of vertex
-            int from = vertex[i][0];
-            int to = vertex[i][1];
-
-            coorToDrawLine[i][0] = coordinates[from - 1][0]; //x1
-            coorToDrawLine[i][1] = coordinates[from - 1][1]; //y1
-
-            coorToDrawLine[i][2] = coordinates[to - 1][0];   //x2
-            coorToDrawLine[i][3] = coordinates[to - 1][1];   //y2
-
-        }
+        coorToDrawLine = coord_ver_line.getLineCoord(vertex, coordinates, n);
 
         // Create array of edges power
 
@@ -213,6 +221,28 @@ public class GraphController {
         isolatedVertexes = type.isoleted(powersDirect);
         hangingVertexes = type.hanging(powersDirect);
 
+        //int[][] array = {{0, 1, 0, 1, 0}, {0, 0, 0, 0, 1}, {1, 0, 0, 0, 0}, {0, 0, 1, 0, 1}, {0, 1, 0, 0, 0}};
+
+        int[][] arrLen2  = arrWays.createWayMatrixLen2(matrix, false);
+        int[][] arrLen3 = arrWays.createWayMatrixLen3(matrix, arrLen2, false);
+
+        int[][] arrCordeInputMat = arrWays.createCoordInputMatrix(matrix);
+        int[][] arrCordeLen2 = arrWays.createCoordFromMatr(arrLen2);
+        int[][] arrCordeLen3 = arrWays.createCoordFromMatr(arrLen3);
+
+
+        waysLen2 = arrWays.getWaysLen2(arrCordeInputMat, arrCordeLen2);
+        waysLen3 = arrWays.getWaysLen3(arrCordeInputMat, arrCordeLen2, arrCordeLen3, waysLen2);
+
+        int[][] reachMat = conMatrix.getConMatrix(matrix);
+        int[][] reachMat2 = arrWays.createWayMatrixLen2(reachMat, true);
+
+        int[][] strongCon = strongConn.getMatrix(reachMat);
+
+        component = strongConn.getComponet(strongCon);
+
+        condens = condensation.getCondentMat(matrix, arrCordeInputMat, component);
+
 
 
         System.out.println("Input matrix: " + Arrays.toString(nums));
@@ -220,10 +250,29 @@ public class GraphController {
         System.out.println("Coordinates of edges: " + Arrays.deepToString(coordinates));
         System.out.println("Coordinates of vertex: " + Arrays.deepToString(vertex));
         System.out.println("Coordinates of lines: " + Arrays.deepToString(coorToDrawLine));
-        System.out.println("Powers of edges: " + Arrays.deepToString(powersDirect));
         System.out.println("Isolated: " + Arrays.toString(isolatedVertexes));
         System.out.println("Hanging: " + Arrays.toString(hangingVertexes));
         System.out.println("Number of vertex: " + n);
+
+        System.out.println();
+
+        System.out.println("WaysLen2: " + Arrays.deepToString(arrLen2));
+        System.out.println("WaysLen3: " + Arrays.deepToString(arrLen3));
+
+        System.out.println("InputMatrixCoord: " + Arrays.deepToString(arrCordeInputMat));
+        System.out.println("CoordLen2: " + Arrays.deepToString(arrCordeLen2));
+        System.out.println("CoordLen3: " + Arrays.deepToString(arrCordeLen3));
+
+        System.out.println();
+
+        System.out.println("Arr of len2: " + Arrays.deepToString(waysLen2));
+        System.out.println("Arr of len3: " + Arrays.deepToString(waysLen3));
+        System.out.println("Reachability Matrix: " + Arrays.deepToString(reachMat));
+        System.out.println("Reachability Matrix^2: " + Arrays.deepToString(reachMat2));
+        System.out.println("Strong connection Matrix: " + Arrays.deepToString(strongCon));
+        System.out.println("Strong connection components: " + Arrays.deepToString(component));
+        System.out.println("Condensation Matrix: " + Arrays.deepToString(condens));
+
 
 
     }
@@ -231,7 +280,7 @@ public class GraphController {
 
     @FXML
     void drawVertex(ActionEvent event) {
-        int r = radius/2 + 3;
+
         int k = 0;
 
         // Draw vertices in loop
@@ -262,7 +311,7 @@ public class GraphController {
             edge.setStroke(Color.BLACK);
             pane.getChildren().add(edge);
         }
-        numCoord = inputText.TextToEdges(line, diagonal);
+        numCoord = inputText.TextToEdges(line, diagonal, 690, 560, 10);
 
         for(int i = 0; i <= numCoord.length; i++){
             if(numCoord[i][0] == 0 && numCoord[i][1] == 0) break;
@@ -460,12 +509,17 @@ public class GraphController {
         int l = 0;
         int flag = 0;
 
+        int y_start = 670;
+        int y_indent = 310;
+
+        int x_start = 920;
+
         for(int i = 0; i < topNum; i++){
             if(powersDirect[0][1] + powersDirect[0][2] == powersDirect[i][1] + powersDirect[i][2]){
                 flag++;
             }
-            if(i == 6) {
-                k = 30;
+            if((i+1)%3 == 1) {
+                k += 30;
                 l = i*160;
             }
             String edgenum = Integer.toString(i + 1);
@@ -473,61 +527,241 @@ public class GraphController {
                 String pos = Integer.toString(powersDirect[i][1]);
                 String neg = Integer.toString(powersDirect[i][2]);
                 String res = "Vertex" + edgenum + ": " + "+ " + pos + ", - " + neg;
-                Text text = new Text(40 + i*160 - l, 750 + k, res);
+                Text text = new Text(x_start + i*160 - l, y_start + k, res);
                 text.setFont(Font.font ("Verdana", 15));
                 pane.getChildren().add(text);
             } else {
                 int sumInt = powersDirect[i][1] + powersDirect[i][2];
                 String sum = Integer.toString(sumInt);
                 String res = "Vertex" + edgenum + ": " + sum;
-                Text text = new Text(40 + i*160 - l, 750 + k, res);
+                Text text = new Text(x_start + i*160 - l, y_start + k, res);
                 text.setFont(Font.font ("Verdana", 15));
                 pane.getChildren().add(text);
             }
         }
 
         if(flag == topNum){
-            Text text = new Text(40, 870, "Regular: yes");
+            Text text = new Text(x_start, y_start + y_indent, "Regular: yes");
             text.setFont(Font.font ("Verdana", 15));
             pane.getChildren().add(text);
         } else {
-            Text text = new Text(40, 870, "Regular: no");
+            Text text = new Text(x_start, y_start + y_indent, "Regular: no");
             text.setFont(Font.font ("Verdana", 15));
             pane.getChildren().add(text);
         }
 
 
 
-        Text text = new Text(40, 820, "Isolated vertices:");
+        Text text = new Text(x_start, y_start + y_indent - 50, "Isolated vertices:");
         text.setFont(Font.font ("Verdana", 15));
         pane.getChildren().add(text);
 
-        Text text3 = new Text(40, 845, "Hanging vertices:");
+        Text text3 = new Text(x_start, y_start + y_indent - 25, "Hanging vertices:");
         text3.setFont(Font.font ("Verdana", 15));
         pane.getChildren().add(text3);
 
         for(int i = 0; i<topNum; i++){
             if(isolatedVertexes[i] == 0) break;
             String isolated = Integer.toString(isolatedVertexes[i]);
-            Text text2 = new Text(180 + i*20, 820 , isolated);
+            Text text2 = new Text(x_start + 140 + i*20, y_start + y_indent - 50 , isolated);
             text2.setFont(Font.font ("Verdana", 15));
             pane.getChildren().add(text2);
         }
 
         for(int i = 0; i<topNum; i++){
             if(hangingVertexes[0] == 0){
-                Text text2 = new Text(180 + i*20, 845, "None");
+                Text text2 = new Text(x_start + 140 + i*20, y_start + y_indent - 25, "None");
                 text2.setFont(Font.font ("Verdana", 15));
                 pane.getChildren().add(text2);
             }
             if(hangingVertexes[i] == 0) break;
             String isolated = Integer.toString(hangingVertexes[i]);
-            Text text2 = new Text(180 + i*20, 845 , isolated);
+            Text text2 = new Text(x_start + 140 + i*20, y_start + y_indent - 25 , isolated);
             text2.setFont(Font.font ("Verdana", 15));
             pane.getChildren().add(text2);
         }
 
         System.out.println("Powers of edges: " + Arrays.deepToString(powersDirect));
+
+    }
+
+    @FXML
+    void showWays(ActionEvent event) {
+
+        //Output ways length 2
+
+        Text titleLen2 = new Text(730, 685, "Length 2");
+        titleLen2.setFont(Font.font ("Verdana", 18));
+        pane.getChildren().add(titleLen2);
+
+        int k = 0;
+
+        for(int i = 0; i < waysLen2.length;  i++){
+            int formul_y = 715 + i*20;
+            if(i >= 15) {
+                k = 150;
+                formul_y = 715 - (15 - i)*20;
+            }
+            if(waysLen2[i][0] == 0) break;
+            String wayToPrint = Integer.toString(waysLen2[i][0]) + " -> " +
+                                Integer.toString(waysLen2[i][1]) + " -> " +
+                                Integer.toString(waysLen2[i][2]);
+
+            Text ways = new Text(645 + k, formul_y, wayToPrint);
+            ways.setFont(Font.font ("Verdana", 14));
+            pane.getChildren().add(ways);
+        }
+
+        //Output ways length 3
+
+        Text titleLen3 = new Text(515, 685, "Length 3");
+        titleLen3.setFont(Font.font ("Verdana", 18));
+        pane.getChildren().add(titleLen3);
+
+        for(int i = 0; i < waysLen3.length;  i++){
+            int formul_y = 715 + i*20;
+            if(i >= 15) {
+                k = 150;
+                formul_y = 715 + (i - 15)*20;
+            }
+            if(waysLen3[i][0] == 0) break;
+            String wayToPrint = Integer.toString(waysLen3[i][0]) + " -> " +
+                    Integer.toString(waysLen3[i][1]) + " -> " +
+                    Integer.toString(waysLen3[i][2]) + " -> " +
+                    Integer.toString(waysLen3[i][3]);
+
+            Text ways = new Text(340 + k, formul_y, wayToPrint);
+            ways.setFont(Font.font ("Verdana", 14));
+            pane.getChildren().add(ways);
+        }
+
+
+
+    }
+
+    @FXML
+    void components(ActionEvent event) {
+
+        //Output components
+
+        Text titleCompon = new Text(315, 685, "Components");
+        titleCompon.setFont(Font.font ("Verdana", 18));
+        pane.getChildren().add(titleCompon);
+
+        int l = 0;
+
+        for(int i = 0; i < component.length;  i++){
+            int formul_y = 715 + i*25;
+            if(i >= 13) {
+                l = 150;
+                formul_y = 715 + (i - 13)*20;
+            }
+            if(component[i][0] == 0) break;
+            String elOfComp = "K" + Integer.toString(i + 1) + " {" ;
+
+            for(int j = 0; j < component[i].length; j++){
+                if(component[i][j] == 0) {
+                    elOfComp += "}";
+                    break;
+                }
+                if(component[i][j+1] != 0){
+                    elOfComp += Integer.toString(component[i][j]) + ", ";
+                } else {
+                    elOfComp += Integer.toString(component[i][j]);
+                }
+
+            }
+
+            Text components = new Text(300 + l, formul_y, elOfComp);
+            components.setFont(Font.font ("Verdana", 14));
+            pane.getChildren().add(components);
+        }
+
+        //Output condensation matrix
+
+        Text titlematrix = new Text(80, 685, "Condensation");
+        titlematrix.setFont(Font.font ("Verdana", 18));
+        pane.getChildren().add(titlematrix);
+
+        int e = 0;
+
+        for(int i = 0; i < condens.length;  i++){
+
+            int size = condens.length;
+
+            String arr = "|" ;
+
+            for(int j = 0; j < size; j++){
+
+                if(j == size - 1) {
+                    arr += Integer.toString(condens[i][j]) + "|";
+                    break;
+                }
+
+                arr += Integer.toString(condens[i][j]) + " ";
+
+
+            }
+
+            Text components = new Text(30,730 + i*25 , arr);
+            components.setFont(Font.font ("Verdana", 24));
+            pane.getChildren().add(components);
+        }
+    }
+
+    @FXML
+    void сondensation(ActionEvent event) {
+
+        int size = 7;
+        int x = 110;
+        int y = 500;
+
+        int numVertex = condens.length;
+
+        int[]line_diagonal2 = l_d.getEdgePos(numVertex);
+
+        int line2 = line_diagonal2[0];
+        int diagonal2 = line_diagonal2[1];
+
+        int[][] coordinates2 = coord.getCoord(line2, diagonal2, x, y, size);
+
+        int[][] vertex2 = coord_ver_line.getVertex(condens, numVertex);
+
+        int n2 = coord_ver_line.numOfVertex(condens, numVertex);
+
+        int[][] coorToDrawLine2 = coord_ver_line.getLineCoord(vertex2, coordinates2, n2);
+
+        int k = 0;
+
+        // Draw vertices in loop
+
+        for(int i = 0; i < n; i++) {
+
+            int x1 = coorToDrawLine2[i][0];
+            int y1 = coorToDrawLine2[i][1];
+
+            int x2 = coorToDrawLine2[i][2];
+            int y2 = coorToDrawLine2[i][3];
+
+            drawLines(x1, y1, x2, y2, coordinates2, r, i, false);
+        }
+
+        for(int i = 0; i<=coordinates2.length; i++){
+            if(coordinates2[i][0] == 0 &&  coordinates2[i][1] == 0) break;
+            Circle edge = new Circle(coordinates2[i][0], coordinates2[i][1], radius);
+            edge.setFill(Color.WHITE);
+            edge.setStroke(Color.BLACK);
+            pane.getChildren().add(edge);
+        }
+
+        int[][] numCoord2 = inputText.TextToEdges(line2, diagonal2, x,y,size);
+
+        for(int i = 0; i <= numCoord2.length; i++){
+            if(numCoord2[i][0] == 0 && numCoord2[i][1] == 0) break;
+            String snum = Integer.toString(i+1);
+            Text num = new Text(numCoord2[i][0], numCoord2[i][1], snum);
+            pane.getChildren().add(num);
+        }
 
     }
 

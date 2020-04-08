@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -512,7 +513,7 @@ public class GraphController {
         int y_start = 670;
         int y_indent = 310;
 
-        int x_start = 920;
+        int x_start = 1065;
 
         for(int i = 0; i < topNum; i++){
             if(powersDirect[0][1] + powersDirect[0][2] == powersDirect[i][1] + powersDirect[i][2]){
@@ -585,12 +586,17 @@ public class GraphController {
 
     }
 
+
+
+
+
+
     @FXML
     void showWays(ActionEvent event) {
 
         //Output ways length 2
 
-        Text titleLen2 = new Text(730, 685, "Length 2");
+        Text titleLen2 = new Text(875, 685, "Length 2");
         titleLen2.setFont(Font.font ("Verdana", 18));
         pane.getChildren().add(titleLen2);
 
@@ -607,21 +613,23 @@ public class GraphController {
                                 Integer.toString(waysLen2[i][1]) + " -> " +
                                 Integer.toString(waysLen2[i][2]);
 
-            Text ways = new Text(645 + k, formul_y, wayToPrint);
+            Text ways = new Text(800 + k, formul_y, wayToPrint);
             ways.setFont(Font.font ("Verdana", 14));
             pane.getChildren().add(ways);
         }
 
         //Output ways length 3
 
-        Text titleLen3 = new Text(515, 685, "Length 3");
+        Text titleLen3 = new Text(600, 685, "Length 3");
         titleLen3.setFont(Font.font ("Verdana", 18));
         pane.getChildren().add(titleLen3);
+
+        int c = 0;
 
         for(int i = 0; i < waysLen3.length;  i++){
             int formul_y = 715 + i*20;
             if(i >= 15) {
-                k = 150;
+                c = 150;
                 formul_y = 715 + (i - 15)*20;
             }
             if(waysLen3[i][0] == 0) break;
@@ -630,11 +638,14 @@ public class GraphController {
                     Integer.toString(waysLen3[i][2]) + " -> " +
                     Integer.toString(waysLen3[i][3]);
 
-            Text ways = new Text(340 + k, formul_y, wayToPrint);
+
+
+            Text ways = new Text(490 + c, formul_y, wayToPrint);
             ways.setFont(Font.font ("Verdana", 14));
             pane.getChildren().add(ways);
-        }
 
+
+        }
 
 
     }

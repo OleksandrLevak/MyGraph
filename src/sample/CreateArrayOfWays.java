@@ -30,9 +30,9 @@ public class CreateArrayOfWays {
 
         int[][] matrdiagnull = matrix;
 
-        if (contiguity == false){
-            matrdiagnull = diagonalNull(matrix);
-        }
+//        if (contiguity == false){
+//            matrdiagnull = diagonalNull(matrix);
+//        }
 
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
@@ -59,10 +59,10 @@ public class CreateArrayOfWays {
         int[][] matrdiagnull = matrix;
         int[][] matrdiagnull2 = matrix2;
 
-        if (contiguity == false){
-            matrdiagnull = diagonalNull(matrix);
-            matrdiagnull2 = diagonalNull(matrix2);
-        }
+//        if (contiguity == false){
+//            matrdiagnull = diagonalNull(matrix);
+//            matrdiagnull2 = diagonalNull(matrix2);
+//        }
 
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
@@ -113,7 +113,7 @@ public class CreateArrayOfWays {
 
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
-                if(i == j) continue;
+              //if(i == j) continue;
                 if(matrix[i][j] == 1){
                     matr[k][0] = i + 1;
                     matr[k][1] = j + 1;
@@ -170,6 +170,36 @@ public class CreateArrayOfWays {
             }
 
         }
+
+//        //Find loop
+//
+//        int[][] forLoop = new int[size][3];
+//
+//        int counter = 0;
+//
+//        for(int i = 0; i < first.length; i++){
+//                if(first[i][0] == first[i][1] && first[i][0] != 0){
+//                    for(int k = 0; k < size; k++){
+//                        if(second[k][0] == first[i][0]){
+//
+//                            forLoop[counter][0] = first[i][0];
+//                            forLoop[counter][1] = first[i][0];
+//                            forLoop[counter][2] = second[k][1];
+//
+//                            counter++;
+//                        } else if(second[k][1] == first[i][1]){
+//
+//                            forLoop[counter][0] = first[i][1];
+//                            forLoop[counter][1] = first[i][1];
+//                            forLoop[counter][2] = second[k][0];
+//
+//                            counter++;
+//
+//                        }
+//                    }
+//                }
+//
+//        }
 
         for(int i = 0; i < size; i++){
                     ways[i][0] = second[i][0];

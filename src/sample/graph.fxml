@@ -7,27 +7,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1080.0" prefHeight="1010.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GraphController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1080.0" prefHeight="1010.0" prefWidth="1900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GraphController">
    <children>
-      <Button fx:id="draw" layoutX="1674.0" layoutY="104.0" mnemonicParsing="false" onAction="#buttonClicked" style="-fx-background-color: black;" text="Show tops" textAlignment="CENTER" textFill="WHITE" />
-      <Text layoutX="1512.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number from 10 to 19" textAlignment="CENTER" wrappingWidth="201.18309593200684">
+      <Button fx:id="draw" layoutX="1799.0" layoutY="104.0" mnemonicParsing="false" onAction="#buttonClicked" style="-fx-background-color: black;" text="Show tops" textAlignment="CENTER" textFill="WHITE" />
+      <Text layoutX="1637.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number from 10 to 19" textAlignment="CENTER" wrappingWidth="201.18309593200684">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="num" layoutX="1713.0" layoutY="45.0" prefHeight="20.0" prefWidth="40.0" />
-      <Separator layoutX="1381.0" orientation="VERTICAL" prefHeight="1010.0" prefWidth="0.0" />
-      <Button fx:id="inputMatrix" layoutX="1436.0" layoutY="600.0" mnemonicParsing="false" onAction="#draw" style="-fx-background-color: black;" text="Input matrix" textAlignment="CENTER" textFill="WHITE" />
-      <Pane fx:id="grid" layoutX="1439.0" layoutY="191.0" prefHeight="360.0" prefWidth="300.0" />
-      <Button fx:id="drawVertex" layoutX="1555.0" layoutY="600.0" mnemonicParsing="false" onAction="#drawVertex" style="-fx-background-color: black;" text="Draw vertexes" textAlignment="CENTER" textFill="WHITE" />
-      <Button fx:id="drawArrows" layoutX="1436.0" layoutY="700.0" mnemonicParsing="false" onAction="#drawArrows" style="-fx-background-color: black;" text="Arrows" textAlignment="CENTER" textFill="WHITE" />
-      <Button fx:id="powerEdge" layoutX="1695.0" layoutY="600.0" mnemonicParsing="false" onAction="#drawPower" style="-fx-background-color: black;" text="Power" textAlignment="CENTER" textFill="WHITE" />
-      <Separator layoutX="-3.0" layoutY="660.0" prefHeight="0.0" prefWidth="1386.0" />
-      <Separator layoutX="900.0" layoutY="660.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="6.0" />
-      <Button fx:id="showWays" layoutX="1436.0" layoutY="650.0" mnemonicParsing="false" onAction="#showWays" style="-fx-background-color: black;" text="Show ways" textAlignment="CENTER" textFill="WHITE" />
-      <Separator layoutX="630.0" layoutY="660.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="6.0" />
+      <TextField fx:id="num" layoutX="1838.0" layoutY="45.0" prefHeight="20.0" prefWidth="40.0" />
+      <Separator layoutX="1529.0" orientation="VERTICAL" prefHeight="1010.0" prefWidth="0.0" />
+      <Button fx:id="inputMatrix" layoutX="1561.0" layoutY="600.0" mnemonicParsing="false" onAction="#draw" style="-fx-background-color: black;" text="Input matrix" textAlignment="CENTER" textFill="WHITE" />
+      <Pane fx:id="grid" layoutX="1564.0" layoutY="191.0" prefHeight="360.0" prefWidth="300.0" />
+      <Button fx:id="drawVertex" layoutX="1680.0" layoutY="600.0" mnemonicParsing="false" onAction="#drawVertex" style="-fx-background-color: black;" text="Draw vertexes" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="drawArrows" layoutX="1561.0" layoutY="700.0" mnemonicParsing="false" onAction="#drawArrows" style="-fx-background-color: black;" text="Arrows" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="powerEdge" layoutX="1820.0" layoutY="600.0" mnemonicParsing="false" onAction="#drawPower" style="-fx-background-color: black;" text="Power" textAlignment="CENTER" textFill="WHITE" />
+      <Separator layoutX="-3.0" layoutY="660.0" prefHeight="0.0" prefWidth="1532.0" />
+      <Separator layoutX="1053.0" layoutY="660.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="6.0" />
+      <Button fx:id="showWays" layoutX="1561.0" layoutY="650.0" mnemonicParsing="false" onAction="#showWays" style="-fx-background-color: black;" text="Show ways" textAlignment="CENTER" textFill="WHITE" />
+      <Separator layoutX="783.0" layoutY="660.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="6.0" />
       <Separator layoutX="470.0" layoutY="660.0" orientation="VERTICAL" prefHeight="350.0" prefWidth="6.0" />
-      <Button fx:id="components" layoutX="1536.0" layoutY="650.0" mnemonicParsing="false" onAction="#components" style="-fx-background-color: black;" text="Components" textAlignment="CENTER" textFill="WHITE" />
-      <Button fx:id="сondensation" layoutX="1650.0" layoutY="650.0" mnemonicParsing="false" onAction="#сondensation" style="-fx-background-color: black;" text="Condensation" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="components" layoutX="1661.0" layoutY="650.0" mnemonicParsing="false" onAction="#components" style="-fx-background-color: black;" text="Components" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="сondensation" layoutX="1775.0" layoutY="650.0" mnemonicParsing="false" onAction="#сondensation" style="-fx-background-color: black;" text="Condensation" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </Pane>

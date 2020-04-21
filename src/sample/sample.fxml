@@ -7,12 +7,17 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Text layoutX="134.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a type of graph" textAlignment="CENTER" wrappingWidth="331.7366943359375">
+      <Text layoutX="134.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a number of lab" textAlignment="CENTER" wrappingWidth="331.7366943359375">
          <font>
             <Font name="Arial" size="29.0" />
          </font>
       </Text>
-      <Button fx:id="button" layoutX="247.0" layoutY="102.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="105.0" text="Triangle">
+      <Button fx:id="lab1_3" layoutX="247.0" layoutY="155.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="105.0" text="Lab 1-3">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="lab4_6" layoutX="247.0" layoutY="232.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="105.0" text="Lab 4-6">
          <font>
             <Font name="Arial" size="20.0" />
          </font>

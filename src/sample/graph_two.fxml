@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1080.0" prefHeight="850.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GraphController_two">
+    <children>
+        <Button fx:id="draw" layoutX="1496.0" layoutY="104.0" mnemonicParsing="false" onAction="#buttonClicked" style="-fx-background-color: black;" text="Show tops" textAlignment="CENTER" textFill="WHITE" />
+        <Text layoutX="1334.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number from 10 to 19" textAlignment="CENTER" wrappingWidth="201.18309593200684">
+            <font>
+                <Font name="Arial" size="18.0" />
+            </font>
+        </Text>
+        <TextField fx:id="num" layoutX="1535.0" layoutY="45.0" prefHeight="20.0" prefWidth="40.0" />
+        <Separator layoutX="1259.0" orientation="VERTICAL" prefHeight="850.0" prefWidth="0.0" />
+        <Button fx:id="inputMatrix" layoutX="1274.0" layoutY="600.0" mnemonicParsing="false" onAction="#draw" style="-fx-background-color: black;" text="Input matrix" textAlignment="CENTER" textFill="WHITE" />
+        <Pane fx:id="grid" layoutX="1280.0" layoutY="191.0" prefHeight="360.0" prefWidth="300.0" />
+        <Button fx:id="drawVertex" layoutX="1408.0" layoutY="600.0" mnemonicParsing="false" onAction="#drawVertex" style="-fx-background-color: black;" text="Draw edges" textAlignment="CENTER" textFill="WHITE" />
+        <Button fx:id="drawArrows" layoutX="1528.0" layoutY="647.0" mnemonicParsing="false" onAction="#drawArrows" style="-fx-background-color: black;" text="Arrows" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="Searchtree" layoutX="1274.0" layoutY="647.0" mnemonicParsing="false" onAction="#drawSearchtree" style="-fx-background-color: black;" text="Search tree" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="drawTreeEdges" layoutX="1380.0" layoutY="647.0" mnemonicParsing="false" onAction="#drawSearchtreeEdges" style="-fx-background-color: black;" text="Draw trees edges" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="bfs" layoutX="1546.0" layoutY="600.0" mnemonicParsing="false" onAction="#drawBFS" style="-fx-background-color: black;" text="BFS" textAlignment="CENTER" textFill="WHITE" />
+      <Text layoutX="1338.0" layoutY="722.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Порядок натискання: Input matrix, Draw edges, BFS(xN), Search tree, Draw trees edges(xN), Arrows" textAlignment="CENTER" wrappingWidth="189.3365478515625">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="1334.0" layoutY="829.0" strokeType="OUTSIDE" strokeWidth="0.0" text="xN - декілька натискань" textAlignment="CENTER" wrappingWidth="189.3365478515625">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Separator layoutX="1262.0" layoutY="694.0" prefHeight="0.0" prefWidth="341.0" />
+    </children>
+</Pane>

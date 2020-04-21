@@ -21,15 +21,36 @@ public class Controller {
     private URL location;
 
     @FXML
-    private Button button;
+    private Button lab1_3;
+
+    @FXML
+    private Button lab4_6;
 
     @FXML
     void initialize() {
-        button.setOnMouseClicked((event) -> {
-            button.getScene().getWindow().hide();
+        lab1_3.setOnMouseClicked((event) -> {
+            lab1_3.getScene().getWindow().hide();
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("graph.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setTitle("MyGraph");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        });
+
+        lab4_6.setOnMouseClicked((event) -> {
+            lab4_6.getScene().getWindow().hide();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("graph_two.fxml"));
 
             try {
                 loader.load();

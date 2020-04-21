@@ -5,6 +5,8 @@ public class NumInEdges {
 
     public int[][] TextToEdges (int line, int diagonal, int x_start, int y_start, int size){
 
+        int coef = diagonal*2;
+
         y_start += 5;
         x_start -= 5;
 
@@ -25,8 +27,8 @@ public class NumInEdges {
             int k = 0;
             if(top >= 10) k = 3;
 
-            numCoord[diagonal + i][0] = x_start + oper_X*3 + i*oper_X - k;
-            numCoord[diagonal + i][1] = y_start - 3*oper_Y + i*oper_Y;
+            numCoord[diagonal + i][0] = x_start + oper_X*diagonal + i*oper_X - k;
+            numCoord[diagonal + i][1] = y_start - diagonal*oper_Y + i*oper_Y;
 
         }
         for(int i = 1; i < line; i++) {
@@ -35,7 +37,7 @@ public class NumInEdges {
             int k = 0;
             if(top >= 10) k = 3;
 
-            numCoord[diagonal * 2 + i][0] = x_start + oper_X*6 - i*(oper_X*6/line) - k;
+            numCoord[diagonal * 2 + i][0] = x_start + oper_X*coef - i*(oper_X*coef/line) - k;
             numCoord[diagonal * 2 + i][1] = y_start;
 
         }

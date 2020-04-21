@@ -171,35 +171,6 @@ public class CreateArrayOfWays {
 
         }
 
-//        //Find loop
-//
-//        int[][] forLoop = new int[size][3];
-//
-//        int counter = 0;
-//
-//        for(int i = 0; i < first.length; i++){
-//                if(first[i][0] == first[i][1] && first[i][0] != 0){
-//                    for(int k = 0; k < size; k++){
-//                        if(second[k][0] == first[i][0]){
-//
-//                            forLoop[counter][0] = first[i][0];
-//                            forLoop[counter][1] = first[i][0];
-//                            forLoop[counter][2] = second[k][1];
-//
-//                            counter++;
-//                        } else if(second[k][1] == first[i][1]){
-//
-//                            forLoop[counter][0] = first[i][1];
-//                            forLoop[counter][1] = first[i][1];
-//                            forLoop[counter][2] = second[k][0];
-//
-//                            counter++;
-//
-//                        }
-//                    }
-//                }
-//
-//        }
 
         for(int i = 0; i < size; i++){
                     ways[i][0] = second[i][0];

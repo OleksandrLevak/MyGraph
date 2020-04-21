@@ -11,7 +11,7 @@ public class CoordToDrawEdges {
         int oper_X = (30 * size)/diagonal;
         int oper_Y = (45 * size)/diagonal;
 
-
+        int coef = diagonal*2;
 
         for(int i = 0; i < diagonal; i++) {
             coordinates[i][0] = x_start + i*oper_X;
@@ -21,14 +21,14 @@ public class CoordToDrawEdges {
         }
         for(int i = 0; i < diagonal + 1; i++) {
             int top = diagonal + (i+1);
-            coordinates[diagonal + i][0] = x_start + oper_X*3 + i*oper_X;
-            coordinates[diagonal + i][1] = y_start - 3*oper_Y + i*oper_Y;
+            coordinates[diagonal + i][0] = x_start + oper_X*diagonal + i*oper_X;
+            coordinates[diagonal + i][1] = y_start - diagonal*oper_Y + i*oper_Y;
             coordinates[diagonal + i][2] = top;
         }
         for(int i = 1; i < line; i++) {
             int top = diagonal * 2 + i + 1;
 
-            coordinates[diagonal * 2 + i][0] = x_start + oper_X*6 - i*(oper_X*6/line);
+            coordinates[diagonal * 2 + i][0] = x_start + oper_X*coef - i*(oper_X*coef/line);
             coordinates[diagonal * 2 + i][1] = y_start;
             coordinates[diagonal * 2 + i][2] = top;
         }

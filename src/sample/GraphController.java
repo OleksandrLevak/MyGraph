@@ -240,9 +240,13 @@ public class GraphController {
 
         int[][] strongCon = strongConn.getMatrix(reachMat);
 
+        int numsub = condensation.copmlexCopmonents(matrix);
+
         component = strongConn.getComponet(strongCon);
 
         condens = condensation.getCondentMat(matrix, arrCordeInputMat, component);
+
+
 
 
 
@@ -254,6 +258,7 @@ public class GraphController {
         System.out.println("Isolated: " + Arrays.toString(isolatedVertexes));
         System.out.println("Hanging: " + Arrays.toString(hangingVertexes));
         System.out.println("Number of vertex: " + n);
+        System.out.println(numsub);
 
         System.out.println();
 
@@ -741,8 +746,6 @@ public class GraphController {
         int n2 = coord_ver_line.numOfVertex(condens, numVertex);
 
         int[][] coorToDrawLine2 = coord_ver_line.getLineCoord(vertex2, coordinates2, n2);
-
-        int k = 0;
 
         // Draw vertices in loop
 

@@ -592,10 +592,6 @@ public class GraphController {
     }
 
 
-
-
-
-
     @FXML
     void showWays(ActionEvent event) {
 

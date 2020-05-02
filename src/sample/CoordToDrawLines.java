@@ -11,7 +11,7 @@ public class CoordToDrawLines {
 
         for(int i = 0; i < length; i++){
             for(int j = 0; j < length; j++){
-                if(matrix[i][j] == 1){
+                if(matrix[i][j] >= 1){
                     vertex[n][0] = j + 1;
                     vertex[n][1] = i + 1;
                     n++;
@@ -48,7 +48,7 @@ public class CoordToDrawLines {
 
         for(int i = 0; i < topNum; i++){
             for(int j = 0; j < topNum; j++){
-                if(matrix[i][j] == 1){
+                if(matrix[i][j] >= 1){
                     n++;
                 }
             }

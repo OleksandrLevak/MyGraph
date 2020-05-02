@@ -78,10 +78,8 @@ public class GraphController_two {
     int r = radius / 2 + 3;
     int line = 0;
     int diagonal = 0;
-    boolean isDirect = false;
     int[] line_diagonal = new int[2];
     int[][] coordDrawLoopArrow = new int[19][2];
-    int[][] checkMatrix = new int[19][19];
     int[][] matrix = new int[11][11];
     int[][] matrixRes = new int[19][19];
     int[][] coorde = new int[19][2];
@@ -95,9 +93,9 @@ public class GraphController_two {
     IndentionFormula indention = new IndentionFormula();
     EdegeOnWay edgeCoord = new EdegeOnWay();
     NumInEdges inputText = new NumInEdges();
-    CheckDirect check = new CheckDirect();
     CreateCrawlTree crawlTree = new CreateCrawlTree();
     BFS bfsearch = new BFS();
+
 
     //Graph settings
 
@@ -187,8 +185,6 @@ public class GraphController_two {
                 count++;
             }
         }
-        isDirect = check.isDirect(matrix);
-        checkMatrix = check.NonDirect(matrix);
 
 
         // Create an array of vertices numbers, which are connected

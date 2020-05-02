@@ -7,8 +7,8 @@ public class CheckDirect {
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat.length; j++) {
                 if (i == j) continue;
-                if (mat[i][j] == 1) ones++;
-                if (mat[i][j] == 1 && mat[j][i] == 1) {
+                if (mat[i][j] >= 1) ones++;
+                if (mat[i][j] >= 1 && mat[j][i] >= 1 && mat[i][j] == mat[j][i]) {
                     pair++;
                 }
             }
@@ -17,7 +17,7 @@ public class CheckDirect {
             for (int i = 0; i < mat.length; i++) {
                 for (int j = 0; j < mat.length; j++) {
                     if (i == j) continue;
-                    if (mat[i][j] == 1 && mat[j][i] == 1) {
+                    if (mat[i][j] >= 1 && mat[j][i] >= 1 && mat[i][j] == mat[j][i]) {
                         mat[j][i] = 0;
                     }
                 }

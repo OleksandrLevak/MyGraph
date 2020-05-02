@@ -24,7 +24,10 @@ public class Controller {
     private Button lab1_3;
 
     @FXML
-    private Button lab4_6;
+    private Button lab4;
+
+    @FXML
+    private Button lab5;
 
     @FXML
     void initialize() {
@@ -46,11 +49,29 @@ public class Controller {
             stage.showAndWait();
         });
 
-        lab4_6.setOnMouseClicked((event) -> {
-            lab4_6.getScene().getWindow().hide();
+        lab4.setOnMouseClicked((event) -> {
+            lab4.getScene().getWindow().hide();
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("graph_two.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setTitle("MyGraph");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        });
+
+        lab5.setOnMouseClicked((event) -> {
+            lab5.getScene().getWindow().hide();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("graph_three.fxml"));
 
             try {
                 loader.load();

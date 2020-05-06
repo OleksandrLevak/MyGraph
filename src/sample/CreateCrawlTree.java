@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CreateCrawlTree {
 
@@ -29,10 +30,11 @@ public class CreateCrawlTree {
                     stack[k + 1][count] = coord[i][0];
                     count++;
                 }
+
             }
             k++;
         }
-        return stack;
+        return arrWithoutZeros(stack);
     }
 
     public int[][] getCoord(int[][] ArrBranch){
@@ -84,4 +86,30 @@ public class CreateCrawlTree {
         return res;
 
     }
+
+
+
+    public int[][] arrWithoutZeros(int[][] arr){
+
+    int bigNum = 100;
+    int size = arr.length;
+
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++){
+            if(arr[i][j] == 0) arr[i][j] = bigNum;
+        }
+
+        Arrays.sort(arr[i]);
+    }
+
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                if(arr[i][j] == bigNum) arr[i][j] = 0;
+            }
+
+        }
+
+    return arr;
+
+}
 }

@@ -30,10 +30,13 @@ public class Weight {
 
         int[][] coorWeightToDrawLine = new int[len*len][5];
 
-        for(int i = 0; i < n; i++){                          //n - number of vertex
+        for(int i = 0; i < n; i++){
+            //n - number of vertex
             int from = w_vertex[i][0];
             int to = w_vertex[i][1];
             int weight = w_vertex[i][2];
+
+            if(from == 0) break;
 
             coorWeightToDrawLine[i][0] = coordinates[from - 1][0]; //x1
             coorWeightToDrawLine[i][1] = coordinates[from - 1][1]; //y1

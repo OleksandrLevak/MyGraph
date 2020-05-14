@@ -1,12 +1,10 @@
 package sample;
 
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -15,8 +13,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.net.URL;
+import java.util.Arrays;
+import java.util.ResourceBundle;
 
-public class GraphController_three {
+
+public class GraphController_four {
 
     @FXML
     private ResourceBundle resources;
@@ -43,10 +45,10 @@ public class GraphController_three {
     private Button weigth;
 
     @FXML
-    private Button skeleton;
+    private Button dijkstraBtn;
 
     @FXML
-    private Button prima_btn;
+    private Button dijkstraGraph;
 
     @FXML
     private Pane grid;
@@ -55,7 +57,7 @@ public class GraphController_three {
     int topNum = 0;
     int n = 0;
     int numOfVertex2 = 0;
-    int startVert = 2;
+    int startVert = 1;
 
     int[][] coordinates = new int[19][3];
     int[][] coordinates2 = new int[19][3];
@@ -76,11 +78,13 @@ public class GraphController_three {
     int [] line_diagonal = new int[2];
     int[][] coordWeightDrawLoopArrow = new int[19][3];
     int[][] matrix = new int[11][11];
+    int[][] matrixW = new int[11][11];
     int[][] checkMatrix = new int[19][19];
 
 
     int[][] w_vertex = new int[190][3];
-    int[][] prima_vertex = new int[20][3];
+    int[][] dijkstra_vertex = new int[400][3];
+    int[][] dijkstraTable = new int[200][19];
 
 
 
@@ -94,7 +98,7 @@ public class GraphController_three {
     CheckDirect check = new CheckDirect();
     Helpers helpfun = new Helpers();
     Weight w_fun = new Weight();
-    AlgPrima prima = new AlgPrima();
+    AlgDijkstra dijkstra = new AlgDijkstra();
 
 
     //Graph settings
@@ -178,6 +182,7 @@ public class GraphController_three {
         for(int i = 0; i < topNum; i++){
             for(int j = 0; j < topNum; j++){
                 matrix[i][j] = nums[count];
+                matrixW[i][j] = nums[count];
                 count++;
             }
         }
@@ -196,25 +201,36 @@ public class GraphController_three {
         coorToDrawLine = coord_ver_line.getLineCoord(vertex, coordinates, n);
         coorToDrawWeightLine = w_fun.getWeightLineCoord(w_vertex, coordinates, n);
 
-        prima_vertex = prima.vertPrima(w_vertex, startVert, topNum);
 
-        //int[][] primMatrix = prima.getMatrix(prima_vertex, topNum);
+        dijkstraTable = dijkstra.vertDijkstraTable(w_vertex, startVert, topNum);
+        int[] dijkstraTableFinal = dijkstra.vertDijkstraTableFinal(dijkstraTable, topNum);
+        int[] shortWayDijkstra = dijkstra.shortWayDijkstra(matrixW, dijkstraTableFinal, 0);
+        dijkstra_vertex = dijkstra.shortWaysDijkstra(matrixW, dijkstraTableFinal);
 
 
 
 
         System.out.println("Input matrix: " + Arrays.toString(nums));
         System.out.println("Matrix to draw: " + Arrays.deepToString(matrix));
+        System.out.println("MatrixW to draw: " + Arrays.deepToString(matrixW));
         System.out.println("Coordinates of edges: " + Arrays.deepToString(coordinates));
         System.out.println("Coordinates of vertex: " + Arrays.deepToString(vertex));
         System.out.println("Coordinates of weight_vertex: " + Arrays.deepToString(w_vertex));
         System.out.println("Coordinates of lines: " + Arrays.deepToString(coorToDrawLine));
         System.out.println("Weight coordinates of lines: " + Arrays.deepToString(coorToDrawWeightLine));
-
         System.out.println("Number of vertex: " + n);
 
-        System.out.println("Coordinates of prima_vertex: " + Arrays.deepToString(prima_vertex));
-       // System.out.println("Prima Matrix: " + Arrays.deepToString(primMatrix));
+        System.out.println("-----------------------");
+        //System.out.println("Coordinates of Dijkstra_vertex: " + Arrays.toString(dijkstra_vertex));
+
+        System.out.println("DijkstraTable: " + Arrays.deepToString(dijkstraTable));
+        System.out.println("DijkstraTable final: " + Arrays.toString(dijkstraTableFinal));
+        System.out.println("ShortWayDijkstra: " + Arrays.toString(shortWayDijkstra));
+        System.out.println("ShortWaysDijkstra: " + Arrays.deepToString(dijkstra_vertex));
+
+
+
+
 
 
     }
@@ -337,51 +353,6 @@ public class GraphController_three {
 
     }
 
-
-    @FXML
-    void drawSkeleton(ActionEvent event) {
-
-        int size = 7;
-        int x = 880;
-        int y = 430;
-
-        Text titleTree = new Text(x + 150, 45, "Skeleton");
-        titleTree.setFont(Font.font ("Arial Black", 24));
-        pane.getChildren().add(titleTree);
-
-        int[]line_diagonal2 = l_d.getEdgePos(topNum);
-
-        int line2 = line_diagonal2[0];
-        int diagonal2 = line_diagonal2[1];
-
-        coordinates2 = coord.getCoord(line2, diagonal2, x, y, size);
-
-        numOfVertex2 = coord_ver_line.numOfVertex(matrix, topNum);
-
-        for(int i = 0; i<=coordinates2.length; i++){
-            if(coordinates2[i][0] == 0 &&  coordinates2[i][1] == 0) break;
-            Circle edge = new Circle(coordinates2[i][0], coordinates2[i][1], radius);
-            edge.setFill(Color.WHITE);
-            edge.setStroke(Color.BLACK);
-            pane.getChildren().add(edge);
-        }
-
-        numCoord2 = inputText.TextToEdges(line2, diagonal2, x,y,size);
-
-        for(int i = 0; i <= numCoord2.length; i++){
-            if(numCoord2[i][0] == 0 && numCoord2[i][1] == 0) break;
-            String snum = Integer.toString(i+1);
-            Text num = new Text(numCoord2[i][0], numCoord2[i][1], snum);
-            pane.getChildren().add(num);
-            if(i == startVert - 1){
-                Text num2 = new Text(numCoord2[i][0], numCoord2[i][1], snum);
-                num2.setFont(Font.font ("Arial Black"));
-                pane.getChildren().add(num2);
-            }
-        }
-
-    }
-
     @FXML
     void drawWeigth(ActionEvent event) {
 
@@ -422,21 +393,82 @@ public class GraphController_three {
 
     }
 
+    @FXML
+    void drawDijkstraGraph(ActionEvent event) {
+
+        int size = 7;
+        int x = 880;
+        int y = 430;
+
+        Text titleTree = new Text(x + 100, 45, "The shortest ways");
+        titleTree.setFont(Font.font ("Arial Black", 24));
+        pane.getChildren().add(titleTree);
+
+        int[]line_diagonal2 = l_d.getEdgePos(topNum);
+
+        int line2 = line_diagonal2[0];
+        int diagonal2 = line_diagonal2[1];
+
+        coordinates2 = coord.getCoord(line2, diagonal2, x, y, size);
+
+        numOfVertex2 = coord_ver_line.numOfVertex(matrix, topNum);
+
+        for(int i = 0; i<=coordinates2.length; i++){
+            if(coordinates2[i][0] == 0 &&  coordinates2[i][1] == 0) break;
+            Circle edge = new Circle(coordinates2[i][0], coordinates2[i][1], radius);
+            edge.setFill(Color.WHITE);
+            edge.setStroke(Color.BLACK);
+            pane.getChildren().add(edge);
+        }
+
+        numCoord2 = inputText.TextToEdges(line2, diagonal2, x,y,size);
+
+        for(int i = 0; i <= numCoord2.length; i++){
+            if(numCoord2[i][0] == 0 && numCoord2[i][1] == 0) break;
+            String snum = Integer.toString(i+1);
+            Text num = new Text(numCoord2[i][0], numCoord2[i][1], snum);
+            pane.getChildren().add(num);
+            if(i == startVert - 1){
+                Text num2 = new Text(numCoord2[i][0], numCoord2[i][1], snum);
+                num2.setFont(Font.font ("Arial Black"));
+                pane.getChildren().add(num2);
+            }
+        }
+
+        Text titleTable = new Text(x + 160, y + 90, "Dijkstra table");
+        titleTable.setFont(Font.font ("Arial Black", 22));
+        pane.getChildren().add(titleTable);
+
+        for(int i = 0; i < topNum; i++){
+
+            String snum = Integer.toString(i+1);
+            String text = snum + "  | ";
+
+            if(i >= 9) text = snum + "|";
+
+            Text vert = new Text(x - 10 + (i*45), y + 130, text);
+            vert.setFont(Font.font ("Arial Black", 20));
+            pane.getChildren().add(vert);
+
+        }
+
+    }
 
     int click = 0;
+    int c = 0;
 
     @FXML
-    void drawPrima(ActionEvent event) {
+    void drawDijkstra(ActionEvent event) {
 
-        int[][] coorToDrawWeightLineSkeleton = w_fun.getWeightLineCoord(prima_vertex, coordinates2, prima_vertex.length);
+        int[][] coorToDrawWeightLineSDijkstra = w_fun.getWeightLineCoord(dijkstra_vertex, coordinates2, dijkstra_vertex.length);
 
-        int x1 = coorToDrawWeightLineSkeleton[click][0];
-        int y1 = coorToDrawWeightLineSkeleton[click][1];
+        int x1 = coorToDrawWeightLineSDijkstra[click][0];
+        int y1 = coorToDrawWeightLineSDijkstra[click][1];
 
-        int x2 = coorToDrawWeightLineSkeleton[click][2];
-        int y2 = coorToDrawWeightLineSkeleton[click][3];
+        int x2 = coorToDrawWeightLineSDijkstra[click][2];
+        int y2 = coorToDrawWeightLineSDijkstra[click][3];
 
-        int weight = coorToDrawWeightLineSkeleton[click][4];
+        int weight = coorToDrawWeightLineSDijkstra[click][4];
 
         drawLines(x1, y1, x2, y2, weight, coordinates2, r, click, false);
 
@@ -450,6 +482,20 @@ public class GraphController_three {
             pane.getChildren().add(edge);
         }
 
+        if(x1 != 0){
+            Circle edge = new Circle(x1, y1, radius);
+            edge.setFill(Color.RED);
+            edge.setStroke(Color.BLACK);
+            pane.getChildren().add(edge);
+
+
+            Circle edge2 = new Circle(x2, y2, radius);
+            edge2.setFill(Color.ORANGE);
+            edge2.setStroke(Color.BLACK);
+            pane.getChildren().add(edge2);
+        }
+
+
 
         for(int i = 0; i <= numCoord2.length; i++){
             if(numCoord2[i][0] == 0 && numCoord2[i][1] == 0) break;
@@ -462,9 +508,42 @@ public class GraphController_three {
                 pane.getChildren().add(num2);
             }
         }
+
+
+        if(weight == 0  || c == 0){
+            for(int j = 0; j < dijkstraTable[0].length; j++) {
+
+                int textSize = 20;
+                int num = dijkstraTable[c][j];
+
+                String snum = Integer.toString(num);
+
+                if(num == 10000) snum = "ꝏ ";
+
+                String text = snum + "  | ";
+
+                if(num >= 10 || num == 10000) {
+                    textSize = 14;
+                    text = snum + "  |";
+                }
+
+                if(num >= 100 && num != 10000) {
+                    textSize = 12;
+                    text = snum + " |";
+                }
+
+
+                Text vert = new Text(880 - 10 + (j * 45), 430 + 150 + (c * 20), text);
+                vert.setFont(Font.font("Arial Black", textSize));
+                pane.getChildren().add(vert);
+            }
+            c++;
+        }
+
+
+
+
     }
-
-
 
 
     public void drawLoop (int x, int y){

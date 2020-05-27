@@ -6,6 +6,13 @@ You can just [download](https://github.com/OleksandrLevak/MyGraph/blob/master/My
 
 ## Protocols of labs 
 
+* [First lab](https://github.com/OleksandrLevak/MyGraph/blob/master/protocols/Protocol_IP93Levak_Lab1.doc)
+* [Second lab](https://github.com/OleksandrLevak/MyGraph/blob/master/protocols/Protocol_IP93Levak_Lab2.doc)
+* [Third lab](https://github.com/OleksandrLevak/MyGraph/blob/master/protocols/Protocol_IP93Levak_Lab3.doc)
+* [Fourth lab](https://github.com/OleksandrLevak/MyGraph/blob/master/protocols/Protocol_IP93Levak_Lab4.doc)
+* [Fifth lab](https://github.com/OleksandrLevak/MyGraph/blob/master/protocols/Protocol_IP93Levak_Lab5.doc)
+* [Sixth lab](https://github.com/OleksandrLevak/MyGraph/blob/master/protocols/Protocol_IP93Levak_Lab6.doc)
+
 ## Matrices for labs 
 ```
 LAB 1

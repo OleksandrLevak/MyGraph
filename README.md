@@ -4,6 +4,8 @@ Labs for discrete structures in KPI
 ## Installation
 You can just [download](https://github.com/OleksandrLevak/MyGraph/blob/master/MyGraph.jar) this program like jar file.
 
+## Protocols of labs 
+
 ## Matrices for labs 
 ```
 LAB 1

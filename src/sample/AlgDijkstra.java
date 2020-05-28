@@ -20,7 +20,7 @@ public class AlgDijkstra {
         while (endNodeWeight != 0) {
             for (int i = 0; i < graph[pos].length; i++) {
                 if (endNodeWeight == (graph[pos][i] + dijkstraTable[i])) {
-                    path.add(0,i + 1);
+                    path.add(0, i + 1);
                     endNodeWeight = dijkstraTable[i];
                     pos = i;
                 }
@@ -28,57 +28,58 @@ public class AlgDijkstra {
         }
         if (!path.contains(endEge + 1)) path.add(endEge + 1);
 
-       int[] res = new int[path.size()*2];
+        int[] res = new int[path.size() * 2];
 
-       for(int i = 0; i < path.size(); i++){
-           res[i] = path.get(i);
-       }
+        for (int i = 0; i < path.size(); i++) {
+            res[i] = path.get(i);
+        }
 
-       return res;
+        return res;
 
     }
 
-    public int[][] shortWaysDijkstra(int[][] graph, int[] dijkstraTable) {
+    public int[][] shortWaysDijkstra(int[][] graph, int[] dijkstraTable, int[] selected) {
 
         int size = graph.length;
 
         int[][] res = new int[size][size];
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             int[] getWay = shortWayDijkstra(graph, dijkstraTable, i);
-            for(int j = 0; j < getWay.length; j++){
-                if(getWay[j] == 0) break;
+            for (int j = 0; j < getWay.length; j++) {
+                if (getWay[j] == 0) break;
                 res[i][j] = getWay[j];
             }
         }
 
-        return shortWaysCorrectForm(res);
+        int[][] corrOrderOfWays = getCorrOrderOfWays(selected, res);
+
+        return shortWaysCorrectForm(corrOrderOfWays);
     }
 
     private int[][] shortWaysCorrectForm(int[][] shortWaysDijkstra) {
 
         int size = shortWaysDijkstra.length;
-        int[][] oneWayInOneArr = new int[size - 1][size*2 - 2];
+        int[][] oneWayInOneArr = new int[size - 1][size * 2 - 2];
 
-        for (int i = 1; i < size; i++){
-            for (int j = 0; j < size; j++){
-                if(shortWaysDijkstra[i][j + 1] == 0) break;
+        for (int i = 1; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (shortWaysDijkstra[i][j + 1] == 0) break;
 
                 oneWayInOneArr[i - 1][j + j] = shortWaysDijkstra[i][j];
                 oneWayInOneArr[i - 1][j + j + 1] = shortWaysDijkstra[i][j + 1];
 
             }
         }
-
-        int[][] shortVert = new int[size*size][3];
+        int[][] shortVert = new int[size * size][3];
 
         int count = 0;
 
-        for(int i = 0; i < oneWayInOneArr.length; i++){
+        for (int i = 0; i < oneWayInOneArr.length; i++) {
             int flag = 1;
-            for(int j = 0; j < oneWayInOneArr[i].length; j ++){
+            for (int j = 0; j < oneWayInOneArr[i].length; j++) {
 
-                if(oneWayInOneArr[i][j + j] == 0) break;
+                if (oneWayInOneArr[i][j + j] == 0) break;
 
                 shortVert[count][0] = oneWayInOneArr[i][j + j];
                 shortVert[count][1] = oneWayInOneArr[i][j + j + 1];
@@ -96,10 +97,7 @@ public class AlgDijkstra {
         return shortVert;
 
 
-
     }
-
-
 
 
     public int[][] vertDijkstraTable(int[][] w_vertex, int edge_start, int len) {
@@ -118,7 +116,7 @@ public class AlgDijkstra {
         //Input elemment value to result_list
 
         int inf = 10000;
-        for(int i = 0; i < len-1; i++){
+        for (int i = 0; i < len - 1; i++) {
             result.add(i, inf);
         }
 
@@ -133,7 +131,7 @@ public class AlgDijkstra {
         int[] coorectOrder = new int[len];
 
 
-        while (j < len-1) {
+        while (j < len - 1) {
             int w = 10000;
 
             int from = 0;
@@ -149,25 +147,25 @@ public class AlgDijkstra {
                     from = f;
                     to = s;
 
-                    if(selected.contains(from) == false) {
+                    if (selected.contains(from) == false) {
                         weigths[count] = t;
                         vert_weight[count][0] = from;
                         vert_weight[count][1] = t;
                         count++;
                     }
-                    if(selected.contains(to) == false) {
+                    if (selected.contains(to) == false) {
                         weigths[count] = t;
                         vert_weight[count][0] = to;
                         vert_weight[count][1] = t;
                         count++;
                     }
 
-                    if(f == selected.get(j)){
-                        if(result.get(s - 1) >= (result.get(f - 1) + t)){
+                    if (f == selected.get(j)) {
+                        if (result.get(s - 1) >= (result.get(f - 1) + t)) {
                             result.set(s - 1, result.get(f - 1) + t);
                         }
                     } else {
-                        if(result.get(f - 1) >= (result.get(s - 1) + t)){
+                        if (result.get(f - 1) >= (result.get(s - 1) + t)) {
                             result.set(f - 1, result.get(s - 1) + t);
                         }
                     }
@@ -180,7 +178,7 @@ public class AlgDijkstra {
             // add vertex to list of visited
 
             for (int i = 0; i < coorectOrder.length; i++) {
-                if(coorectOrder[i] == 0) break;
+                if (coorectOrder[i] == 0) break;
                 selected.add(coorectOrder[i]);
             }
 
@@ -188,14 +186,14 @@ public class AlgDijkstra {
 
             ArrayList<Integer> arr = new ArrayList<>();
 
-            for(int i = 0; i < len; i++){
+            for (int i = 0; i < len; i++) {
                 arr.add(i, result.get(i));
             }
 
             result2.addAll(Arrays.asList(arr));
             j++;
         }
-
+        System.out.println("Selected: " + selected);
         return getArrfromListOfWays(result2);
 
 
@@ -206,22 +204,22 @@ public class AlgDijkstra {
         int[] res = new int[len];
         int size = vertDijkstraTable.length;
 
-        for (int i = 0; i < len; i++){
-            res[i] = vertDijkstraTable[size-1][i];
+        for (int i = 0; i < len; i++) {
+            res[i] = vertDijkstraTable[size - 1][i];
         }
 
         return res;
 
     }
 
-    private int[][] getArrfromList(ArrayList<ArrayList<Integer>> list){
+    private int[][] getArrfromList(ArrayList<ArrayList<Integer>> list) {
 
         int size = list.size();
 
-        int[][] res = new int[size*size][3];
+        int[][] res = new int[size * size][3];
 
-        for(int i = 0; i < size; i++){
-            if(list.get(i).get(2) == 10000) break;
+        for (int i = 0; i < size; i++) {
+            if (list.get(i).get(2) == 10000) break;
             res[i][0] = list.get(i).get(0);
             res[i][1] = list.get(i).get(1);
             res[i][2] = list.get(i).get(2);
@@ -231,14 +229,14 @@ public class AlgDijkstra {
 
     }
 
-    private int[][] getArrfromListOfWays(ArrayList<ArrayList<Integer>> list){
+    private int[][] getArrfromListOfWays(ArrayList<ArrayList<Integer>> list) {
 
         int size = list.size();
 
         int[][] res = new int[size][size + 1];
 
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size + 1; j++){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size + 1; j++) {
                 res[i][j] = list.get(i).get(j);
             }
         }
@@ -247,7 +245,7 @@ public class AlgDijkstra {
 
     }
 
-    private ArrayList<ArrayList<Integer>> getListfromArr(int[][] w_vertex){
+    private ArrayList<ArrayList<Integer>> getListfromArr(int[][] w_vertex) {
 
         ArrayList<ArrayList<Integer>> w_vert = new ArrayList<>(100);
 
@@ -268,7 +266,7 @@ public class AlgDijkstra {
     }
 
 
-    private int[] getCorrectOrder(int[] weights, int[][] vert_weight){
+    private int[] getCorrectOrder(int[] weights, int[][] vert_weight) {
 
         int len = weights.length;
 
@@ -278,22 +276,169 @@ public class AlgDijkstra {
 
         int count = 0;
 
-        for(int i = 0; i < len; i++){
-            if(weights[i] == 0) continue;
+        for (int i = 0; i < len; i++) {
+            if (weights[i] == 0) continue;
             int selectWeigth = weights[i];
             for (int j = 0; j < vert_weight.length; j++) {
-                if(selectWeigth == vert_weight[j][1]) {
+                if (selectWeigth == vert_weight[j][1]) {
                     res[count] = vert_weight[j][0];
                     count++;
                 }
             }
         }
-
         return res;
 
     }
 
-}
+    public int[] getCorrOrderOfVert(int[][] w_vertex, int edge_start, int len) {
+
+        ArrayList<ArrayList<Integer>> w_vert = new ArrayList<>(100);
+
+        w_vert = getListfromArr(w_vertex);
+
+        ArrayList<Integer> selected = new ArrayList<>();
+
+        selected.add(0, edge_start);
+
+        ArrayList<Integer> result = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> result2 = new ArrayList<>();
+
+        //Input elemment value to result_list
+
+        int inf = 10000;
+        for (int i = 0; i < len - 1; i++) {
+            result.add(i, inf);
+        }
+
+        result.add(0, 0);
+
+        int[] coorectOrder = new int[len];
+        int j = 0;
+
+        int[] weigths = new int[len];
+        int[][] vert_weight = new int[len][2];
+
+
+        while (j < len - 1) {
+            int w = 10000;
+
+            int from = 0;
+            int to = 0;
+            int count = 0;
+
+
+            for (int i = 0; i < w_vert.size(); i++) {
+                int f = w_vert.get(i).get(0);
+                int s = w_vert.get(i).get(1);
+                int t = w_vert.get(i).get(2);
+                if ((f == selected.get(j) || s == selected.get(j)) && t <= w) {
+                    from = f;
+                    to = s;
+
+                    if (selected.contains(from) == false) {
+                        weigths[count] = t;
+                        vert_weight[count][0] = from;
+                        vert_weight[count][1] = t;
+                        count++;
+                    }
+                    if (selected.contains(to) == false) {
+                        weigths[count] = t;
+                        vert_weight[count][0] = to;
+                        vert_weight[count][1] = t;
+                        count++;
+                    }
+
+                    if (f == selected.get(j)) {
+                        if (result.get(s - 1) >= (result.get(f - 1) + t)) {
+                            result.set(s - 1, result.get(f - 1) + t);
+                        }
+                    } else {
+                        if (result.get(f - 1) >= (result.get(s - 1) + t)) {
+                            result.set(f - 1, result.get(s - 1) + t);
+                        }
+                    }
+                }
+
+            }
+            coorectOrder = getCorrectOrder(weigths, vert_weight);
+
+            // add vertex to list of visited
+
+            for (int i = 0; i < coorectOrder.length; i++) {
+                if (coorectOrder[i] == 0) break;
+                selected.add(coorectOrder[i]);
+            }
+
+            Arrays.fill(weigths, 0);
+
+            ArrayList<Integer> arr = new ArrayList<>();
+
+            for (int i = 0; i < len; i++) {
+                arr.add(i, result.get(i));
+            }
+
+            result2.addAll(Arrays.asList(arr));
+            j++;
+        }
+
+
+
+            int[] resultSelected = new int[selected.size()];
+
+            for(int i = 0; i < selected.size(); i++){
+                resultSelected[i] = selected.get(i);
+            }
+
+            return resultSelected;
+
+
+        }
+
+        public int[][] getCorrOrderOfWays (int[] selected, int[][] shortWaysDijkstra) {
+
+        ArrayList<ArrayList<Integer>> shortWaysDijkstraList = new ArrayList<>();
+
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+
+        for (int i = 0; i < shortWaysDijkstra.length; i++) {
+            if(shortWaysDijkstra[i][0] == 0) break;
+            for(int j = 0; j < shortWaysDijkstra.length; j++){
+                if(shortWaysDijkstra[i][j] == 0) break;
+                shortWaysDijkstraList.add(new ArrayList<Integer>());
+                shortWaysDijkstraList.get(i).add(shortWaysDijkstra[i][j]);
+            }
+        }
+
+        for(int i = 0; i < selected.length; i++){
+            int selectedVert = selected[i];
+            for(int j = 0; j < shortWaysDijkstraList.size(); j++) {
+                int indexOfLast = shortWaysDijkstraList.get(j).size() - 1;
+                int lastEl = shortWaysDijkstraList.get(j).get(indexOfLast);
+                if(lastEl == selectedVert) {
+                    for(int k = 0; k < shortWaysDijkstraList.get(j).size(); k++) {
+                        int el = shortWaysDijkstraList.get(j).get(k);
+                        res.add(new ArrayList<Integer>());
+                        res.get(i).add(el);
+                    }
+                    break;
+
+            }
+            }
+        }
+
+        int[][] corrOrderOfWays = new int[selected.length][selected.length];
+
+        for(int i = 0; i < selected.length; i++){
+            for(int j = 0; j < res.get(i).size(); j++){
+                corrOrderOfWays[i][j] = res.get(i).get(j);
+            }
+        }
+            return corrOrderOfWays;
+        }
+    }
+
+
+
 
 
 

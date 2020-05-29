@@ -203,9 +203,9 @@ public class GraphController_four {
 
 
         dijkstraTable = dijkstra.vertDijkstraTable(w_vertex, startVert, topNum);
-        int[] sel = dijkstra.getCorrOrderOfVert(w_vertex, startVert, topNum);
         int[] dijkstraTableFinal = dijkstra.vertDijkstraTableFinal(dijkstraTable, topNum);
         int[] shortWayDijkstra = dijkstra.shortWayDijkstra(matrixW, dijkstraTableFinal, 1);
+        int[] sel = dijkstra.getCorrOrderOfVert(dijkstraTableFinal);
         dijkstra_vertex = dijkstra.shortWaysDijkstra(matrixW, dijkstraTableFinal, sel);
 
 
@@ -222,7 +222,7 @@ public class GraphController_four {
         System.out.println("Number of vertex: " + n);
 
         System.out.println("-----------------------");
-        //System.out.println("Coordinates of Dijkstra_vertex: " + Arrays.toString(dijkstra_vertex));
+        System.out.println("Coordinates of Dijkstra_vertex: " + Arrays.toString(dijkstra_vertex));
 
         System.out.println("DijkstraTable: " + Arrays.deepToString(dijkstraTable));
         System.out.println("DijkstraTable final: " + Arrays.toString(dijkstraTableFinal));
@@ -231,10 +231,6 @@ public class GraphController_four {
 
 
         System.out.println("Selected: " + Arrays.toString(sel));
-
-
-
-
 
 
     }

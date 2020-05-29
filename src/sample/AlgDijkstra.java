@@ -290,109 +290,45 @@ public class AlgDijkstra {
 
     }
 
-    public int[] getCorrOrderOfVert(int[][] w_vertex, int edge_start, int len) {
+    public int[] getCorrOrderOfVert(int[] dijkstraTableFinal) {
 
-        ArrayList<ArrayList<Integer>> w_vert = new ArrayList<>(100);
+        int len = dijkstraTableFinal.length;
 
-        w_vert = getListfromArr(w_vertex);
+        ArrayList<Integer> diikTable = new ArrayList<>(len);
 
-        ArrayList<Integer> selected = new ArrayList<>();
+        // Copy arr
 
-        selected.add(0, edge_start);
-
-        ArrayList<Integer> result = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> result2 = new ArrayList<>();
-
-        //Input elemment value to result_list
-
-        int inf = 10000;
-        for (int i = 0; i < len - 1; i++) {
-            result.add(i, inf);
+        for (int i = 0; i < len; i++) {
+            diikTable.add(dijkstraTableFinal[i]);
         }
 
-        result.add(0, 0);
+        int[] correct = new int[len];
 
-        int[] coorectOrder = new int[len];
-        int j = 0;
+        int[] sort = new int[len];
 
-        int[] weigths = new int[len];
-        int[][] vert_weight = new int[len][2];
+        // Copy arr
 
+        for (int i = 0; i < len; i++) {
+            sort[i] = dijkstraTableFinal[i];
+        }
+        Arrays.sort(sort);
 
-        while (j < len - 1) {
-            int w = 10000;
-
-            int from = 0;
-            int to = 0;
-            int count = 0;
-
-
-            for (int i = 0; i < w_vert.size(); i++) {
-                int f = w_vert.get(i).get(0);
-                int s = w_vert.get(i).get(1);
-                int t = w_vert.get(i).get(2);
-                if ((f == selected.get(j) || s == selected.get(j)) && t <= w) {
-                    from = f;
-                    to = s;
-
-                    if (selected.contains(from) == false) {
-                        weigths[count] = t;
-                        vert_weight[count][0] = from;
-                        vert_weight[count][1] = t;
-                        count++;
-                    }
-                    if (selected.contains(to) == false) {
-                        weigths[count] = t;
-                        vert_weight[count][0] = to;
-                        vert_weight[count][1] = t;
-                        count++;
-                    }
-
-                    if (f == selected.get(j)) {
-                        if (result.get(s - 1) >= (result.get(f - 1) + t)) {
-                            result.set(s - 1, result.get(f - 1) + t);
-                        }
-                    } else {
-                        if (result.get(f - 1) >= (result.get(s - 1) + t)) {
-                            result.set(f - 1, result.get(s - 1) + t);
-                        }
-                    }
+        int c = 0;
+        for(int i = 0; i < len; i++){
+            int selectEl = sort[i];
+            for(int j = 0; j < len; j++){
+                if(selectEl == diikTable.get(j)){
+                    diikTable.set(j, -1);
+                    correct[c] = j + 1;
+                    c++;
+                    break;
                 }
 
             }
-            coorectOrder = getCorrectOrder(weigths, vert_weight);
-
-            // add vertex to list of visited
-
-            for (int i = 0; i < coorectOrder.length; i++) {
-                if (coorectOrder[i] == 0) break;
-                selected.add(coorectOrder[i]);
-            }
-
-            Arrays.fill(weigths, 0);
-
-            ArrayList<Integer> arr = new ArrayList<>();
-
-            for (int i = 0; i < len; i++) {
-                arr.add(i, result.get(i));
-            }
-
-            result2.addAll(Arrays.asList(arr));
-            j++;
         }
+        return correct;
 
-
-
-            int[] resultSelected = new int[selected.size()];
-
-            for(int i = 0; i < selected.size(); i++){
-                resultSelected[i] = selected.get(i);
-            }
-
-            return resultSelected;
-
-
-        }
+    }
 
         public int[][] getCorrOrderOfWays (int[] selected, int[][] shortWaysDijkstra) {
 
